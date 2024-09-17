@@ -113,9 +113,9 @@ const TaskComponent = () => {
                           {task.name || ""}
                         </div>
                         <div className="flex items-center justify-end gap-2 mb-1">
-                          <button className="px-2 py-1 bg-blue-400 text-white rounded-md cursor-pointer">
+                          {/* <button className="px-2 py-1 bg-blue-400 text-white rounded-md cursor-pointer">
                             Edit
-                          </button>
+                          </button> */}
                           <button
                             className="px-2 py-1 bg-red-400 text-white rounded-md cursor-pointer"
                             onClick={() => dispatch(removeTask(task))}
