@@ -20,6 +20,7 @@ const TaskComponent = () => {
     description: "",
     status: "",
   });
+  const [status, setStatus] = useState("ALL");
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -98,43 +99,58 @@ const TaskComponent = () => {
         </form>
         <div>
           <div className=" ">
-            <div className="mb-2 w-full  font-semibold text-center ">
-              Task List
+            <div className="flex items-center justify-between mb-2 ">
+              <div className="w-full font-semibold">Task List </div>
+              <select
+                className="px-2 py-1 outline-none border border-1  bg-gray-100 rounded-md"
+                onChange={(e) => {
+                  setStatus(e.target.value);
+                }}
+              >
+                <option value="ALL">All</option>
+                <option value="TODO">To Do</option>
+                <option value="IN_PROGRESS">In Progress</option>
+                <option value="COMPLETED">Completed</option>
+              </select>
             </div>
             <div className="w-full flex flex-row items-center flex-wrap gap-3">
               {taskList && taskList?.length
-                ? taskList.map((task: any) => (
-                    <div
-                      key={task.id}
-                      className=" mx-auto p-2 rounded-md shadow-md border border-1 border-gray-200 w-full"
-                    >
-                      <div className="flex item-center justify-between">
-                        <div className=" text-lg font-medium">
-                          {task.name || ""}
-                        </div>
-                        <div className="flex items-center justify-end gap-2 mb-1">
-                          {/* <button className="px-2 py-1 bg-blue-400 text-white rounded-md cursor-pointer">
+                ? taskList
+                    .filter((task: any) =>
+                      status === "ALL" ? task : task.status === status
+                    )
+                    .map((task: any) => (
+                      <div
+                        key={task.id}
+                        className=" mx-auto p-2 rounded-md shadow-md border border-1 border-gray-200 w-full"
+                      >
+                        <div className="flex item-center justify-between">
+                          <div className=" text-lg font-medium">
+                            {task.name || ""}
+                          </div>
+                          <div className="flex items-center justify-end gap-2 mb-1">
+                            {/* <button className="px-2 py-1 bg-blue-400 text-white rounded-md cursor-pointer">
                             Edit
                           </button> */}
-                          <button
-                            className="px-2 py-1 bg-red-400 text-white rounded-md cursor-pointer"
-                            onClick={() => dispatch(removeTask(task))}
-                          >
-                            Delete
-                          </button>
+                            <button
+                              className="px-2 py-1 bg-red-400 text-white rounded-md cursor-pointer"
+                              onClick={() => dispatch(removeTask(task))}
+                            >
+                              Delete
+                            </button>
+                          </div>
                         </div>
-                      </div>
-                      <div>
-                        <span
-                          className={` text-white text-sm font-medium px-2 py-1 bg-yellow-400 rounded-md`}
-                        >
-                          {task.status}
-                        </span>
-                      </div>
+                        <div>
+                          <span
+                            className={` text-white text-sm font-medium px-2 py-1 bg-yellow-400 rounded-md`}
+                          >
+                            {task.status}
+                          </span>
+                        </div>
 
-                      <div className="text-justify">{task.description}</div>
-                    </div>
-                  ))
+                        <div className="text-justify">{task.description}</div>
+                      </div>
+                    ))
                 : "No data found"}
             </div>
           </div>
