@@ -45,7 +45,7 @@ const TaskComponent = () => {
     <div className="px-4 lg:px-6 py-2 max-w-lg mx-auto">
       <div>
         <div className=" p-2 my-4 font-semibold text-lg">
-          Task Mangagement App
+          Task Management App
         </div>
         <form className="w-full mb-4" onSubmit={handleAddTask}>
           <div className="flex flex-col w-fullmb-2">
